@@ -99,7 +99,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-import dj_database_url
+#mport dj_database_url
 #DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -121,6 +121,11 @@ STATICFILES_DIRS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine',
-        'NAME': 'moocdb',
+        'NAME': 'moocdb_test',
+        'USER': 'moocdb_test',
+       'PASSWORD': 'moocdb_test',
+       'HOST': 'ds063170.mongolab.com',
+       'PORT': '63170' 
+
     }
 }
