@@ -79,6 +79,7 @@ def add_time(request):
 
     context['time'] = request.GET.get('time', 'no time found' )
     context['user_id'] = request.user.id
+   
     return render_to_response('moocb/add.html', context)
 
 
