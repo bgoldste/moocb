@@ -59,7 +59,7 @@ def add_time(request):
         _id = request.GET.get('user', 0)
         try:
             
-            context['user'] = User.objects.get(id = _id)
+            context['user'] = 'adsasdasdadasd' #User.objects.get(id = _id)
 
             goal = Goal.objects.filter(user = User.objects.get(id = _id))[0]
             goal.time_worked = goal.time_worked + int(request.GET.get('time', 0))
@@ -69,6 +69,7 @@ def add_time(request):
         except:
             context['user'] =  "not found for id: " + str(_id)
         data = {}
+        context['user'] = 'asda'
         return HttpResponse(json.dumps(data), content_type="application/json")
 
         
@@ -77,7 +78,7 @@ def add_time(request):
     # 5483d889c5cbe5190bc1d834
 
     context['time'] = request.GET.get('time', 'no time found' )
-    
+    context['user_id'] = request.user.id
     return render_to_response('moocb/add.html', context)
 
 
