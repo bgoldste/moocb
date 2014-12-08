@@ -4,10 +4,11 @@ from django.shortcuts import render_to_response
 # from django.http import *
 # from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from moocb.models import Goal, User
+from moocb.models import Goal 
 import json
 
 def home(request):

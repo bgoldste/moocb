@@ -52,7 +52,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangotoolbox',
-    'moocb'
+   
+  
+    'moocb',
     
 )
 
@@ -66,14 +68,27 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+
+
+
 ROOT_URLCONF = 'moocb.urls'
 
 WSGI_APPLICATION = 'moocb.wsgi.application'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moocdb',                      
+        'USER': 'ben',
+        'PASSWORD': 'openslot',
+        'HOST': ''
+    }
+}
+
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 
 
 
@@ -120,14 +135,4 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_mongodb_engine',
-        'NAME': 'moocdb_test',
-        'USER': 'moocdb_test',
-       'PASSWORD': 'moocdb_test',
-       'HOST': 'ds063170.mongolab.com',
-       'PORT': '63170' 
 
-    }
-}
