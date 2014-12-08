@@ -13,6 +13,15 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moocdb',                      
+        'USER': 'ben',
+        'PASSWORD': 'openslot',
+        'HOST': ''
+    }
+}
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -69,21 +78,16 @@ MIDDLEWARE_CLASSES = (
 )
 
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    )
+
 
 
 ROOT_URLCONF = 'moocb.urls'
 
 WSGI_APPLICATION = 'moocb.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'moocdb',                      
-        'USER': 'ben',
-        'PASSWORD': 'openslot',
-        'HOST': ''
-    }
-}
 
 
 
@@ -115,7 +119,10 @@ USE_TZ = True
 
 
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#set w heroku config?
+
+#heroku config:set SOME_VARIABLE=some_value
+#DATABASES['default'] =  dj_database_url.config()
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -133,7 +140,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 

@@ -8,8 +8,9 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from moocb.models import Goal 
+from moocb.models import Goal , User
 import json
+from forms import UserForm
 
 def home(request):
     
@@ -20,12 +21,14 @@ def home(request):
 
 def login_user(request):
     logout(request)
-    username = password = ''
+    username = ''
+    password = ''
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
+        print user
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -82,4 +85,29 @@ def add_time(request):
 
 
 
+
+
+def add_user(request):
+    context = RequestContext(request)
+    logout(request)
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            print new_user
+            print 'form username' , form.cleaned_data['username']
+            print 'form pw' , form.cleaned_data['password']
+            #new_user = authenticate(username='ben', password='1')
+
+            print 'new_user object ' , new_user
+            print request
+            new_user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, new_user)
+
+            # redirect, or however you want to get to the main vie
+            return render_to_response('moocb/me.html', context_instance=RequestContext(request))
+    else:
+        form = UserForm() 
+
+    return render_to_response( 'moocb/adduser.html', {'form': form},  context_instance=RequestContext(request))
 

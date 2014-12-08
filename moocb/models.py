@@ -23,10 +23,22 @@ class Goal(models.Model):
 
 	name = models.CharField(max_length=300)
 	url = models.CharField(max_length=100)
+	time_goal = models.IntegerField( null=True)
 
 	start_date = models.DateField(default=datetime.now)
 	end_date = models.DateField()
 	time_worked = models.IntegerField(default=0)
 	last_worked = models.DateField(blank=True, null=True)
+
 	def __unicode__(self):
 		return u'%s' % (self.name)	
+
+
+
+
+
+
+
+
+
+
