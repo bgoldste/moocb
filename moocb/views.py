@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from moocb.models import Goal , User
 import json
-from forms import UserForm
+from forms import UserForm, GoalForm
 
 def home(request):
     
@@ -55,7 +55,6 @@ def add_time(request):
     #how to do for multiple goals?
     context = RequestContext(request)
     
-    
     if request.POST:
         _id = request.GET.get('user', 0)
         try:
@@ -83,10 +82,6 @@ def add_time(request):
 
 
 
-
-
-
-
 def add_user(request):
     context = RequestContext(request)
     logout(request)
@@ -101,13 +96,29 @@ def add_user(request):
 
             print 'new_user object ' , new_user
             print request
+            #hack!
             new_user.backend = 'django.contrib.auth.backends.ModelBackend'
             login(request, new_user)
 
             # redirect, or however you want to get to the main vie
-            return render_to_response('moocb/me.html', context_instance=RequestContext(request))
+            return HttpResponseRedirect('/me/')
+            #return render_to_response('moocb/me.html', context_instance=RequestContext(request))
     else:
         form = UserForm() 
-
     return render_to_response( 'moocb/adduser.html', {'form': form},  context_instance=RequestContext(request))
+
+@login_required
+def add_goal (request):
+    context = RequestContext(request)
+    if request.method == "POST":
+        form = GoalForm(request.POST)
+        if form.is_valid():
+            new_goal = Goal (user= request.user, **form.cleaned_data)
+            new_goal.save()
+            return HttpResponseRedirect('/me/')
+    else:
+        form = GoalForm() 
+
+    return render_to_response( 'moocb/addgoal.html', {'form': form},  context_instance=RequestContext(request))
+
 

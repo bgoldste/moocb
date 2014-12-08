@@ -13,6 +13,13 @@
 
 <h1>Hi {{user}}</h1>
 <h1>Goals:{{goals}}</h1>
+<ul>
+{% for goal in goals %}
+	<li>Goal Name:{{goal}}  Goal Url:{{goal.url}}  Time Goal: {{goal.time_goal}} Time Completed: {{goal.time_worked}} {{goal.start_date}}</li>
+
+
+{% endfor %}
+</ul>
 
 
 
