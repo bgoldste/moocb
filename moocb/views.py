@@ -54,8 +54,11 @@ def logout_user(request):
 def add_time(request):
     #how to do for multiple goals?
     context = RequestContext(request)
-    
+    print request
+    print 'calling add time view' , request.POST #, (request.Post == True)
     if request.POST:
+
+        print "post detected!"
         _id = request.GET.get('user', 0)
         try:
             
