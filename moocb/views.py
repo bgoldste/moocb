@@ -48,7 +48,7 @@ def me(request):
 
 def logout_user(request):
     logout(request)
-    return render_to_response('moocb/login.html')
+    return HttpResponseRedirect('/login/')
 
 @csrf_exempt
 def add_time(request):
