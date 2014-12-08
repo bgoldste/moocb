@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from moocb.views import home, login_user, me, logout_user, add_time
-
+from django.conf import settings
 
 admin.autodiscover()
 urlpatterns = patterns('',
@@ -17,3 +17,8 @@ urlpatterns = patterns('',
     url(r'^add/$', add_time),
 
 )
+
+if not settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )
