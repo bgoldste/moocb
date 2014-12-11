@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from moocb.models import Goal , User
 import json
 from forms import UserForm, GoalForm
+import sys
 
 def home(request):
     
@@ -93,24 +94,21 @@ def add_time(request):
                     'user' : user.username,
 
                     }
+                else:
+                    data = {'msg': 'goal and id dont match '}
+                    print "not true"
                
 
              
             else:
+                data = {'msg': 'not enough parameters included, make sure to include user goal and time'}
                 print "not true"
             print 'after loop'
 
-
-
-
-            # goal = Goal.objects.filter(user = User.objects.get(id = _id))[0]
-            # goal.time_worked = goal.time_worked + int(request.GET.get('time', 0))
-            # goal.save()
-            # context['course'] = goal
-
         except:
             print 'error'
-            data = {'msg': 'error'}
+            data = {'msg': str(sys.exc_info()[0] )}
+
         print 'pre return'
       
         return HttpResponse(json.dumps(data), content_type="application/json")
