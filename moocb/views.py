@@ -59,20 +59,60 @@ def add_time(request):
     if request.POST:
 
         print "post detected!"
-        _id = request.GET.get('user', 0)
+        #_id = request.GET.get('user', 0)
+       
         try:
-            
-            context['user'] = 'adsasdasdadasd' #User.objects.get(id = _id)
+            print "getting user id"
+            user_id =  request.GET.get('user', None)
+            print "getting goal id"
+            goal_id = request.GET.get('goal', None)
+            print "getting time id"
+            time = request.GET.get('time', None)
+            print 'user_id :', user_id, 'goal_id ', goal_id, 'time ', time
+            print user_id and goal_id and time
+            print 'pixxa'
+            if user_id and goal_id and time:
+                print 'if statement running'
+                user = User.objects.get(id=user_id)
+                print user
+                goal = Goal.objects.get(id=goal_id)
+                print "user", user, 'goal', goal
+                print 'goal user', goal.user
 
-            goal = Goal.objects.filter(user = User.objects.get(id = _id))[0]
-            goal.time_worked = goal.time_worked + int(request.GET.get('time', 0))
-            goal.save()
-            context['course'] = goal
+                if goal.user.id == user.id:
+                    print "goal time", goal.time_worked
+                    goal.time_worked = goal.time_worked + int(time)
+                    goal.save()
+                    print " new goal time", goal.time_worked
+                    time_left = goal.time_goal - goal.time_worked
+                    data = {
+                    'goal' : goal.name, 
+                    'time_added' : time,
+                    'new_goal_time': goal.time_worked,
+                    'time_left_to_goal' : time_left,
+                    'user' : user.username,
+
+                    }
+               
+
+             
+            else:
+                print "not true"
+            print 'after loop'
+
+
+
+
+            # goal = Goal.objects.filter(user = User.objects.get(id = _id))[0]
+            # goal.time_worked = goal.time_worked + int(request.GET.get('time', 0))
+            # goal.save()
+            # context['course'] = goal
 
         except:
-            context['user'] =  "not found for id: " + str(_id)
-        data = {}
-        context['user'] = 'asda'
+            print 'error'
+            data = {'msg': 'error'}
+        print 'pre return'
+      
         return HttpResponse(json.dumps(data), content_type="application/json")
 
         
@@ -80,10 +120,10 @@ def add_time(request):
     # 5483d7bec5cbe518fe34eb84
     # 5483d889c5cbe5190bc1d834
 
-    context['time'] = request.GET.get('time', 'no time found' )
-    context['user_id'] = request.user.id
+    # context['time'] = request.GET.get('time', 'no time found' )
+    # context['user_id'] = request.user.id
    
-    return render_to_response('moocb/add.html', context)
+    # return render_to_response('moocb/add.html', context)
 
 
 
