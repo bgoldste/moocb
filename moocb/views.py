@@ -37,6 +37,57 @@ def login_user(request):
     return render_to_response('moocb/login.html', context_instance=RequestContext(request))
 
 
+@csrf_exempt
+def login_user_json(request):
+    try:
+        logout(request)
+        username = 'ben'
+        password = '1'
+        print request.POST
+       
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+
+        user = authenticate(username=username, password=password)
+        print user
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                
+                data = {
+                    'user': user.username,
+                    'userid': user.id,
+                    'goals': [{'name':goal.name, 'id': goal.id} for goal in Goal.objects.filter(user=user)],
+                }
+                return HttpResponse(json.dumps(data), content_type="application/json")
+        data = {
+            
+            'msg' :'non fatal inval login. is it an active user?',
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+    except:
+       
+        data = {'msg': str(sys.exc_info()[0] )}
+        
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+@csrf_exempt
+def select_goal(request):
+    context = RequestContext(request)
+    try:
+        if request.user.is_authenticated():
+            data = {'user': request.user.id }
+        else:
+            data = {'msg' : 'user not found?'}
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    except:
+        data = {'msg': str(sys.exc_info()[0] )}
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+
 @login_required
 def me(request):
     context = RequestContext(request)
