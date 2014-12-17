@@ -127,6 +127,7 @@ def add_time(request):
     context = RequestContext(request)
     print request
     print 'calling add time view' , request.POST #, (request.Post == True)
+    data = {}
     if request.POST:
 
         print "post detected!"
@@ -181,7 +182,7 @@ def add_time(request):
 
         print 'pre return'
       
-        return HttpResponse(json.dumps(data), content_type="application/json")
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
         
     # 5483c154c5cbe516f21d5f08
