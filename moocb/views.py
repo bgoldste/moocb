@@ -12,7 +12,7 @@ from moocb.models import Goal , User
 import json
 from forms import UserForm, GoalForm
 import sys
-
+from django.core import serializers
 def home(request):
     
     # html = "<html><body>Guiseppe is my moocbuddy</body></html>" 
@@ -53,21 +53,40 @@ def login_user_json(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                
+                goal = Goal.objects.filter(user = user)[0]
                 data = {
+                    'type': 'user_login',
+                    'status': 'success',
                     'user': user.username,
                     'userid': user.id,
-                    'goals': [{'name':goal.name, 'id': goal.id} for goal in Goal.objects.filter(user=user)],
+                    'goal': {
+                            'name': goal.name, 
+                            'id': goal.id,
+                            'url': goal.url,
+                            'time_goal': goal.time_goal,
+                            'last_worked': goal.last_worked,
+                            'start_date': str(goal.start_date),
+                            'end_date': str(goal.end_date),
+                            'time_worked': goal.time_worked,
+
+                            },
                 }
+
+
                 return HttpResponse(json.dumps(data), content_type="application/json")
         data = {
-            
+            'type': 'user_login',
+            'status': 'fail',
             'msg' :'non fatal inval login. is it an active user?',
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
     except:
-       
-        data = {'msg': str(sys.exc_info()[0] )}
+        data = {
+           'type': 'user_login',
+           'status': 'fail',
+           'msg' : str(sys.exc_info()[0] ),
+        }
+        
         
         return HttpResponse(json.dumps(data), content_type="application/json")
 
