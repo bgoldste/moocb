@@ -19,10 +19,10 @@ class UserInfo(models.Model):
     	return u'%s' % (self.user)	
 
 class Goal(models.Model):
-	user = models.ForeignKey(User)
+	user = models.OneToOneField(User)
 
 	name = models.CharField(max_length=300)
-	url = models.CharField(max_length=100)
+	url = models.URLField(max_length=300)
 	time_goal = models.IntegerField( null=True)
 
 	start_date = models.DateField(default=datetime.now)

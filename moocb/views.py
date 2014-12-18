@@ -68,7 +68,6 @@ def login_user_json(request):
                             'start_date': str(goal.start_date),
                             'end_date': str(goal.end_date),
                             'time_worked': goal.time_worked,
-
                             },
                 }
 
@@ -223,15 +222,20 @@ def add_user(request):
 
 @login_required
 def add_goal (request):
+
     context = RequestContext(request)
-    if request.method == "POST":
-        form = GoalForm(request.POST)
-        if form.is_valid():
-            new_goal = Goal (user= request.user, **form.cleaned_data)
-            new_goal.save()
-            return HttpResponseRedirect('/me/')
+    if (Goal.objects.filter(user = request.user.id)):
+        return HttpResponseRedirect('/me/')
+
     else:
-        form = GoalForm() 
+        if request.method == "POST":
+            form = GoalForm(request.POST)
+            if form.is_valid():
+                new_goal = Goal (user= request.user, **form.cleaned_data)
+                new_goal.save()
+                return HttpResponseRedirect('/me/')
+        else:
+            form = GoalForm() 
 
     return render_to_response( 'moocb/addgoal.html', {'form': form},  context_instance=RequestContext(request))
 
