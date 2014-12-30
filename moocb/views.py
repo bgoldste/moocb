@@ -35,7 +35,10 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect('/me/')
+                if (Goal.objects.filter(user = user)):
+                    return HttpResponseRedirect('/addgoal/')
+                else:
+                    return HttpResponseRedirect('/me/')
     return render_to_response('moocb/login.html', context_instance=RequestContext(request))
 
 
