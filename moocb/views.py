@@ -119,7 +119,7 @@ def me(request):
         context['user'] = request.user
 
         context['goal'] = Goal.objects.get(user = request.user.id)
-        context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
+        #context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
         return render_to_response('moocb/me.html', context)
     except:
        return HttpResponseRedirect('/addgoal/')
