@@ -28,11 +28,12 @@ def login_test():
 	
 	print 'login_test'
 	#for user in User.objects.all():
-	url = 'http://127.0.0.1:8000/login_json/' 
+	#url = 'http://127.0.0.1:8000/login_json/' 
+	url = "https://salty-inlet-9116.herokuapp.com/login_json/"
 	# print user.username
 	# print user.password
 	print url
-	r = requests.post(url, data = {'username':'ben', 'password': 1})
+	r = requests.post(url, data = {'username':'test', 'password': 1})
 	print r.text
 
 def select_goal_test():

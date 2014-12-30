@@ -23,15 +23,36 @@ class Goal(models.Model):
 
 	name = models.CharField(max_length=300)
 	url = models.URLField(max_length=300)
-	time_goal = models.IntegerField( null=True)
+	time_goal = models.PositiveIntegerField( null=True)
 
 	start_date = models.DateField(default=datetime.now)
 	end_date = models.DateField()
-	time_worked = models.IntegerField(default=0)
+	time_worked = models.PositiveIntegerField(default=0)
+
 	last_worked = models.DateField(blank=True, null=True)
 
 	def __unicode__(self):
 		return u'%s' % (self.name)	
+
+
+
+class TimeLog(models.Model):
+
+	#todo - order by date
+	
+	goal = models.ForeignKey(Goal)
+
+	date = models.DateField(default=datetime.now)
+	time_to_add = models.PositiveIntegerField()
+
+	def __unicode__(self):
+		return u'%s : %s : time added: %d' % (self.goal.name, self.date, self.time_to_add)	
+
+	class Meta:
+		ordering = ["date"]
+
+
+
 
 
 

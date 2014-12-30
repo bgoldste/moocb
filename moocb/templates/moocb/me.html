@@ -4,6 +4,7 @@
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 	{% load staticfiles %}
 	<link href="{% static "moocb/moocb.css" %}" rel="stylesheet">
+	<link href="{% static "moocb/bootstrap.min.css" %}" rel="stylesheet">
 </head>
 
 
@@ -11,20 +12,70 @@
 
 <body>
 
-<h1>Hi {{user}}</h1>
-<h1>Goals:{{goals}}</h1>
-<ul>
-{% for goal in goals %}
-	<li>Goal Name:{{goal}}  Goal Url:{{goal.url}}  Time Goal: {{goal.time_goal}} Time Completed: {{goal.time_worked}} {{goal.start_date}}</li>
+	<h1 class = 'text-center'>Hi {{user}}</h1>
+	<h1>Goals:{{goal}}</h1>
+	<h1>TimeLogs:{{time_logs}}</h1>
 
 
-{% endfor %}
-</ul>
+	<div class = ' text-center jumbotron dashboard'>
+		<h3 class = ''> Goal Progress for {{goal.url}}</h3>
+		<div class = 'row'>
+			<div class = 'col-xs-6'>
+				<h4>Total Time Worked : {{goal.time_worked}}</h4>
+				<h4>Total Time Goal : {{goal.time_goal}}</h4>
+				<h4 class= 'percent_completed'>Percentage Completed : </h4>
+
+			</div>
+
+			<div class = 'col-xs-6 time_logs'>
+				<h4>My Time Logs</h4>
+				<ul>
+				{% for time_log in time_logs %}
+					<li>{{time_log}}</li>
+				{% endfor %}
+				</ul>
+
+			
+
+			</div>
+
+
+
+
+
+
+		</div>
+
+
+
+
+	</div>
+	
 
 
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	{% load staticfiles %}
+	<script src="{% static "moocb/jquery-1.11.1.min.js" %}"></script>
+	<script src="{% static "moocb/bootstrap.min.js" %}"></script>
+
+	
+	<script type="text/javascript">
+	{% block content %}
+	var time_goal = {{goal.time_goal}};
+	var time_worked= {{goal.time_worked}};
+	var percent_completed = (time_goal - (time_goal - time_worked)) * 100 / time_goal;
+
+	//var time_logs = {{time_logs}};
+
+	$(".percent_completed").append(percent_completed + '%');
+
+	{% endblock  %}
+
+	</script>
+
+	
 </body>
 
 

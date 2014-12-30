@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,Http404
 from django.shortcuts import render_to_response
 
 # from django.http import *
@@ -8,16 +8,18 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from moocb.models import Goal , User
+from moocb.models import Goal , User, TimeLog
 import json
 from forms import UserForm, GoalForm
 import sys
 from django.core import serializers
+
+
+
+
 def home(request):
     
-    # html = "<html><body>Guiseppe is my moocbuddy</body></html>" 
-    # return HttpResponse(html)
-    return render_to_response('moocb/home.html')
+    return render_to_response('moocb/home2.html')
 
 
 def login_user(request):
@@ -108,12 +110,16 @@ def select_goal(request):
 
 @login_required
 def me(request):
-    context = RequestContext(request)
+    try:
+        context = RequestContext(request)
 
-    context['user'] = request.user
+        context['user'] = request.user
 
-    context['goals'] = Goal.objects.filter(user = request.user.id)
-    return render_to_response('moocb/me.html', context)
+        context['goal'] = Goal.objects.get(user = request.user.id)
+        context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
+        return render_to_response('moocb/me.html', context)
+    except:
+       return HttpResponseRedirect('/addgoal/')
 
 
 def logout_user(request):
@@ -122,7 +128,7 @@ def logout_user(request):
 
 @csrf_exempt
 def add_time(request):
-    #how to do for multiple goals?
+    
     context = RequestContext(request)
     print request
     print 'calling add time view' , request.POST #, (request.Post == True)
@@ -130,7 +136,7 @@ def add_time(request):
     if request.POST:
 
         print "post detected!"
-        #_id = request.GET.get('user', 0)
+        
        
         try:
             print "getting user id"
@@ -181,6 +187,9 @@ def add_time(request):
 
         print 'pre return'
       
+        
+    else:
+        raise Http404
     return HttpResponse(json.dumps(data), content_type="application/json")
 
         
@@ -214,7 +223,7 @@ def add_user(request):
             login(request, new_user)
 
             # redirect, or however you want to get to the main vie
-            return HttpResponseRedirect('/me/')
+            return HttpResponseRedirect('/addgoal/')
             #return render_to_response('moocb/me.html', context_instance=RequestContext(request))
     else:
         form = UserForm() 

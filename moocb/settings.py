@@ -1,9 +1,7 @@
 """
 Django settings for moocb project.
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
-
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
@@ -13,15 +11,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'moocdb',                      
-        'USER': 'ben',
-        'PASSWORD': 'openslot',
-        'HOST': ''
-    }
-}
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -61,7 +50,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangotoolbox',
-    'corsheaders',
    
   
     'moocb',
@@ -70,25 +58,30 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-   
 )
 
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 
 ROOT_URLCONF = 'moocb.urls'
 
 WSGI_APPLICATION = 'moocb.wsgi.application'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moocdb',                      
+        'USER': 'ben',
+        'PASSWORD': 'openslot',
+        'HOST': ''
+    }
+}
 
 
 
@@ -120,19 +113,7 @@ USE_TZ = True
 
 
 import dj_database_url
-#set w heroku config?
-
-#heroku config:set SOME_VARIABLE=some_value
-
-
-
-
 DATABASES['default'] =  dj_database_url.config()
-
-
-
-
-
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -151,5 +132,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
