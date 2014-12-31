@@ -5,6 +5,9 @@
 	{% load staticfiles %}
 	<link href="{% static "moocb/moocb.css" %}" rel="stylesheet">
 	<link href="{% static "moocb/bootstrap.min.css" %}" rel="stylesheet">
+	 <link rel="chrome-webstore-item"
+    href="https://chrome.google.com/webstore/detail/milcfngfomdmcongnpglkdlgkodjcfdl">
+
 </head>
 
 
@@ -13,8 +16,15 @@
 <body>
 
 	<h1 class = 'text-center'>Hi {{user}}</h1>
+	
+ <a href = 'https://chrome.google.com/webstore/detail/moocmate-extension/milcfngfomdmcongnpglkdlgkodjcfdl'> Install the chrome extension to get started!</a>
+
+
+
 	<h1>Goals:{{goal}}</h1>
 	<h1>TimeLogs:{{time_logs}}</h1>
+
+
 
 
 	<div class = ' text-center jumbotron dashboard'>
