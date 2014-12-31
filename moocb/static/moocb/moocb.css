@@ -1,7 +1,64 @@
-body{
-/*	background-color: #777;*/
+body {
+	/*background: url("../moocb/books.jpg");
+  	box-shadow: inset 0 0 0 1000px #3A757C;
+    opacity: .9;*/
+    background: #3A757C;
+    color:#fff;
+   
 }
 
-h1 {
-	color: red;
+
+body::after {
+  content: "";
+  background: url("../moocb/books.jpg");
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+    
+input{
+
+	color: #F16350;
+}
+ 
+
+h3 {
+	font-weight: 300;
+}
+
+.form{
+	padding-top: 100px;
+}
+
+.entry{
+	border-radius: 25px;
+	border: solid;
+	border-color:#fff;
+	padding: 10px;
+	width: 300px;
+	margin-top:10px;
+	margin-bottom:7px;
+	margin-left: auto;
+	margin-right: auto;
+	border-width: 2px;
+	
+}
+
+.submit{
+	border-radius: 25px;
+	
+	padding: 10px;
+	width: 150px;
+	margin-top:0px;
+	margin-bottom:25px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #F16350;
+	color: #fff;
+	border: none;
+	font-size: 18px;
 }

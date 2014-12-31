@@ -1,5 +1,24 @@
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Create new user account" />
-</form>
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class = 'form text-center'>
+	<h3 class = 'form-title '>Create your Moocbuddy account</h3>
+
+	<form method="post" action="">
+		{% csrf_token %}
+			{% for field in form %}
+	    {{ field.errors }}
+	    <div class = 'entry'> {{field.name}}</div>
+
+	    {% endfor %}
+	   
+			<input class = 'submit' type="submit" value="create" />
+
+	</form>
+
+
+
+
+{% endblock %}
