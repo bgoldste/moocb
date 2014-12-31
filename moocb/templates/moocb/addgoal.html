@@ -1,5 +1,32 @@
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Create new goal" />
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class = 'form text-center'>
+	<h3 class = 'form-title '>Welcome, {{user}}!</h3>
+	<p>Let's get started, I have a few questions for you.</p>
+
+	<form method="post" action="">
+		
+		{% if form.errors %}
+					{% for error in form.errors %}
+       			
+   					<div class="alert alert-danger " role="alert">{{ error|escape }}</div>
+
+					{% endfor %}
+		      	{% endif %}
+		{% csrf_token %}
+		<h4>WHat is the name of the course you're taking?</h4>
+			{{form.url}}
+			{{form.name}}
+			{{form.end_date}}
+			{{form.time_goal}}
+	   
+			<input class = 'submit' type="submit" value="create" />
+
+	</form>
+
+
+
+{% endblock %}

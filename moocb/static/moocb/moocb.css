@@ -28,6 +28,8 @@ input{
 
 h3 {
 	font-weight: 300;
+
+	margin-bottom: 25px;
 }
 
 .form{
@@ -38,14 +40,16 @@ h3 {
 	border-radius: 25px;
 	border: solid;
 	border-color:#fff;
-	padding: 10px;
+	padding: 0px;
 	width: 300px;
+	height: 50px;
 	margin-top:10px;
 	margin-bottom:7px;
 	margin-left: auto;
 	margin-right: auto;
 	border-width: 2px;
-	
+	background: transparent;
+	color: #fff;
 }
 
 .submit{
@@ -61,4 +65,36 @@ h3 {
 	color: #fff;
 	border: none;
 	font-size: 18px;
+}
+
+.field-input{
+	/*display: none;*/
+	/*margin:8px;*/
+	width: 300px;
+}
+
+.field-label{
+	position: absolute;
+	margin:0px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	color:#F16350;
+}
+
+.date-entry{
+	color: red;
+	width: 150px;
+	
+}
+
+.form-control::-webkit-input-placeholder { color: #fff; }
+
+
+.form-control::-moz-placeholder {
+  color: #fff;
+}
+.form-control:-ms-input-placeholder {
+  color: #fff;
 }

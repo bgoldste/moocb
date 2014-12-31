@@ -236,6 +236,7 @@ def add_user(request):
 def add_goal (request):
 
     context = RequestContext(request)
+    context['user'] = request.user
     if (Goal.objects.filter(user = request.user.id)):
         return HttpResponseRedirect('/me/')
 
