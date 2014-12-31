@@ -26,7 +26,7 @@ class Goal(models.Model):
 	time_goal = models.PositiveIntegerField( null=True)
 
 	start_date = models.DateField(default=datetime.now)
-	end_date = models.DateField()
+	end_date = models.DateField(default=datetime(2015, 2, 14, 0, 0))
 	time_worked = models.PositiveIntegerField(default=0)
 
 	last_worked = models.DateField(blank=True, null=True)
