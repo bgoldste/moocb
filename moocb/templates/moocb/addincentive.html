@@ -5,8 +5,8 @@
 
 <div class = 'form text-center'>
 	<h3 class = 'form-title '>Welcome, {{user}}!</h3>
-	<p>Let's get started, I have a few questions for you.</p>
-	<h4>What is the name of the course you're taking?</h4>
+	<p>Let's set up our incentive for our goal: {{goal}}</p>
+	
 	<form method="post" action="">
 		{% csrf_token %}
 		{% for field in form %}

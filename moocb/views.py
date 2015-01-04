@@ -8,9 +8,9 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
-from moocb.models import Goal , User, TimeLog
+from moocb.models import Goal , User, TimeLog, Incentive
 import json
-from forms import UserForm, GoalForm
+from forms import UserForm, GoalForm, IncentiveForm
 import sys
 from django.core import serializers
 
@@ -119,6 +119,7 @@ def me(request):
         context['user'] = request.user
 
         context['goal'] = Goal.objects.get(user = request.user.id)
+        context['incentive'] = Incentive.objects.get(goal = context['goal'])
         #context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
         return render_to_response('moocb/me.html', context)
     except:
@@ -246,10 +247,28 @@ def add_goal (request):
             if form.is_valid():
                 new_goal = Goal (user= request.user, **form.cleaned_data)
                 new_goal.save()
-                return HttpResponseRedirect('/me/')
+                return HttpResponseRedirect('/addincentive/')
         else:
             form = GoalForm() 
 
     return render_to_response( 'moocb/addgoal.html', {'form': form},  context_instance=RequestContext(request))
 
+@login_required
+def add_incentive(request):
+    context = RequestContext(request)
 
+    context['user'] = request.user
+    goal = Goal.objects.filter(user = request.user.id)[0]
+ 
+    if request.method == "POST":
+        form = IncentiveForm(request.POST)
+        if form.is_valid():
+            new_incentive = Incentive(goal = goal, **form.cleaned_data)
+            new_incentive.save()
+            # new_goal = Goal (user= request.user, **form.cleaned_data)
+            # new_goal.save()
+            return HttpResponseRedirect('/me/')
+    else:
+        form = IncentiveForm()
+
+    return render_to_response( 'moocb/addincentive.html', {'form': form, 'goal': goal},  context_instance=RequestContext(request))

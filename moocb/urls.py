@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from moocb.views import home, login_user, me, logout_user, add_time, add_user, add_goal, login_user_json, select_goal
+from moocb.views import home, login_user, me, logout_user, add_time, add_user, add_goal, login_user_json, select_goal, add_incentive
 from django.conf import settings
 
 admin.autodiscover()
@@ -17,8 +17,9 @@ urlpatterns = patterns('',
     url(r'^add/$', add_time),
     url(r'^adduser/$', add_user),
     url(r'^addgoal/$', add_goal),
+     url(r'^addincentive/$', add_incentive),
     url(r'^login_json/$', login_user_json),
-    url(r'^select_goal/$', select_goal)
+    url(r'^select_goal/$', select_goal),
 
 )
 

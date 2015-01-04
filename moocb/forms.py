@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from moocb.models import  Goal
+from moocb.models import  Goal, Incentive
 from django.forms import ModelForm
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
@@ -21,3 +21,15 @@ class GoalForm(ModelForm):
 	url= forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'url', 'class': 'text-center form-control entry'}))
 	end_date =  forms.DateField(widget=SelectDateWidget(attrs={'class': 'form-control entry date-entry text-center'} ) )
 	time_goal = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Time Goal', 'class': 'text-center form-control entry'}))
+
+
+class IncentiveForm(ModelForm):
+	class Meta:
+		model = Incentive
+		fields = ( 'total_pledge',)
+	total_pledge = forms.FloatField(widget=forms.NumberInput(attrs={'placeholder': 'How much you pledge to finish your goal', 'class': 'text-center form-control entry'}))
+	
+
+
+
+		

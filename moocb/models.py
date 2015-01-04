@@ -2,6 +2,9 @@ from django.db import models
 from djangotoolbox.fields import ListField
 from moocb import settings
 
+
+
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 
@@ -33,6 +36,23 @@ class Goal(models.Model):
 
 	def __unicode__(self):
 		return u'%s' % (self.name)	
+
+
+
+class Incentive(models.Model):
+	goal = models.OneToOneField(Goal)
+
+	total_pledge = models.FloatField(default = 50.00, validators = [MinValueValidator(0.0),])
+	amount_refunded = models.FloatField(default= 0.0, validators = [MinValueValidator(0.0),])
+
+	refund_increment = models.FloatField(default= 0.25, validators = [MinValueValidator(0.0),])
+
+
+
+
+	def __unicode__(self):
+		return u'Incentive for %s: %s' % (self.goal.name, self.total_pledge)
+
 
 
 
