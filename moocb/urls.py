@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from moocb.views import home, login_user, me, logout_user, add_time, add_user, add_goal, login_user_json, select_goal, add_incentive, pay
 from django.conf import settings
+from django.views.generic import TemplateView
+
 
 admin.autodiscover()
 urlpatterns = patterns('',
@@ -21,6 +23,9 @@ urlpatterns = patterns('',
     url(r'^login_json/$', login_user_json),
     url(r'^select_goal/$', select_goal),
     url(r'^pay/$', pay),
+  
+
+     url(r'^google6f82ca7c7de8dd2c.html/$', TemplateView.as_view(template_name='moocb/google6f82ca7c7de8dd2c.html'), name="home"),
 
 )
 
