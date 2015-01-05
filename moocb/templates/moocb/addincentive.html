@@ -19,13 +19,7 @@
 			{% endif %}
 
 
-			{% if field.name == 'end_date' %}
-				<p>Enter the Date you'd like to finish the goal by.</p>
-			{% endif %}
-
-			{% if field.name == 'time_goal' %}
-				<p>Enter how much time you would like to spend working on your goal.</p>
-			{% endif %}
+		
 			{{field}}
 		{% endfor %}
 		
@@ -36,16 +30,9 @@
 	</form>
 
 
-	<form action="/charge" method="POST">
-	  <script
-	    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	    data-key="pk_test_ac0EQFgbU0C6zzVpQXHbGSi0"
-	    data-image="/square-image.png"
-	    data-name="Demo Site"
-	    data-description="2 widgets ($20.00)"
-	    data-amount="2000">
-	  </script>
-	</form>
+
+
+
 
 
 

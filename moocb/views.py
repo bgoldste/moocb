@@ -263,7 +263,11 @@ def add_incentive(request):
     if request.method == "POST":
         form = IncentiveForm(request.POST)
         if form.is_valid():
+            print form.data 
+           
             new_incentive = Incentive(goal = goal, **form.cleaned_data)
+            #modify incentive to be right for $$$$$
+            new_incentive.total_pledge = new_incentive.total_pledge * 100
             new_incentive.save()
             # new_goal = Goal (user= request.user, **form.cleaned_data)
             # new_goal.save()

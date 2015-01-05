@@ -50,9 +50,13 @@ class Incentive(models.Model):
 
 
 
-
 	def __unicode__(self):
 		return u'Incentive for %s: %s' % (self.goal.name, self.total_pledge)
+
+
+	@property
+	def total_dollars(self):
+		return '%.2f' % ( self.total_pledge / 100.0)
 
 
 
