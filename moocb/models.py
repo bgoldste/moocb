@@ -42,8 +42,9 @@ class Goal(models.Model):
 class Incentive(models.Model):
 	goal = models.OneToOneField(Goal)
 
-	total_pledge = models.FloatField(default = 50.00, validators = [MinValueValidator(0.0),])
-	amount_refunded = models.FloatField(default= 0.0, validators = [MinValueValidator(0.0),])
+	#
+	total_pledge = models.PositiveIntegerField(default=3000)
+	amount_refunded = models.PositiveIntegerField(default= 0)
 
 	refund_increment = models.FloatField(default= 0.25, validators = [MinValueValidator(0.0),])
 

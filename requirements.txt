@@ -17,6 +17,7 @@ requests==2.4.3
 requests-oauthlib==0.4.1
 six==1.7.3
 static3==0.5.1
+stripe==1.19.1
 tweepy==3.1.0
 whitenoise==1.0.5
 wsgiref==0.1.2

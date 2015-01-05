@@ -13,7 +13,7 @@ import json
 from forms import UserForm, GoalForm, IncentiveForm
 import sys
 from django.core import serializers
-
+import stripe
 
 
 
@@ -267,8 +267,48 @@ def add_incentive(request):
             new_incentive.save()
             # new_goal = Goal (user= request.user, **form.cleaned_data)
             # new_goal.save()
-            return HttpResponseRedirect('/me/')
+
+            return HttpResponseRedirect('/pay/')
     else:
         form = IncentiveForm()
 
     return render_to_response( 'moocb/addincentive.html', {'form': form, 'goal': goal},  context_instance=RequestContext(request))
+
+
+@login_required
+def pay(request):
+    #context = RequestContext(request)
+    context ={}
+    try:
+        incentive = Incentive.objects.get(goal__user = request.user.id)
+        context['incentive'] = incentive
+    except:
+        return HttpResponseRedirect('/addincentive/')
+
+    stripe.api_key = "sk_test_9NI64mTfIvxJumwQU2wu22Qg"
+
+    # Get the credit card details submitted by the form
+    token = request.POST.get('stripeToken', '')
+
+    print "loading view"
+    if request.method == "POST":
+        print request
+        # Create the charge on Stripe's servers - this will charge the user's card
+        try:
+            print "trying to charge"
+            charge = stripe.Charge.create(
+              amount=incentive.total_pledge, # amount in cents, again
+              currency="usd",
+              card=token,
+              description=request.user.email
+            )
+            print 'charge successful token = ' , token
+        except stripe.CardError, e:
+             # The card has been declined
+            print 'charge failed'
+            pass
+    
+    return render_to_response( 'moocb/pay.html', context,  context_instance=RequestContext(request))
+
+
+
