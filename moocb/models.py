@@ -48,6 +48,8 @@ class Incentive(models.Model):
 
 	refund_increment = models.FloatField(default= 0.25, validators = [MinValueValidator(0.0),])
 
+	is_paid = models.BooleanField(default=False)
+
 
 
 	def __unicode__(self):

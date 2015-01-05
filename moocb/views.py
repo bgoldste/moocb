@@ -113,11 +113,13 @@ def select_goal(request):
 
 @login_required
 def me(request):
+
+
     try:
         context = RequestContext(request)
 
         context['user'] = request.user
-
+        
         context['goal'] = Goal.objects.get(user = request.user.id)
         context['incentive'] = Incentive.objects.get(goal = context['goal'])
         #context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
@@ -239,13 +241,16 @@ def add_goal (request):
     context = RequestContext(request)
     context['user'] = request.user
     if (Goal.objects.filter(user = request.user.id)):
-        return HttpResponseRedirect('/me/')
+        if Incentive.objects.filter(goal__user = request.user.id):
+            return HttpResponseRedirect('/me/')
+        else:
+            return HttpResponseRedirect('/addincentive/')
 
     else:
         if request.method == "POST":
             form = GoalForm(request.POST)
             if form.is_valid():
-                new_goal = Goal (user= request.user, **form.cleaned_data)
+                new_goal = Goal(user= request.user, **form.cleaned_data)
                 new_goal.save()
                 return HttpResponseRedirect('/addincentive/')
         else:
@@ -306,7 +311,12 @@ def pay(request):
               card=token,
               description=request.user.email
             )
+            incentive.is_paid = True
+            incentive.save()
+            print incentive
             print 'charge successful token = ' , token
+            return HttpResponseRedirect('/me/')
+
         except stripe.CardError, e:
              # The card has been declined
             print 'charge failed'

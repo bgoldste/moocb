@@ -24,6 +24,22 @@
 	<h1>Goals:{{goal}}</h1>
 	<h1>TimeLogs:{{time_logs}}</h1>
 	<h1>Incentive: {{incentive}}</h1>
+	<h2>Incentive paid? {{incentive.is_paid}}</h2>
+
+{% if incentive.is_paid == False %}
+	<form action="/pay/" method="POST">
+		{% csrf_token %}
+	  <script
+	    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	    data-key="pk_test_ac0EQFgbU0C6zzVpQXHbGSi0"
+	    {% load staticfiles%}
+	    data-image="{% static "moocb/icon.jpg" %}"
+	    data-name="Moocbuddy"
+	    data-description="${{incentive.total_dollars}} deposit on finishing my online class."
+	    data-amount="{{incentive.total_pledge}}"
+	  </script>
+	</form>
+{% endif %}
 
 
 
