@@ -26,6 +26,7 @@ urlpatterns = patterns('',
   
 
      url(r'^google6f82ca7c7de8dd2c.html/$', TemplateView.as_view(template_name='moocb/google6f82ca7c7de8dd2c.html'), name="home"),
+      url(r'^google7c1c3385afed65d5.html/$', TemplateView.as_view(template_name='moocb/google7c1c3385afed65d5.html'), name="home"),
 
 )
 

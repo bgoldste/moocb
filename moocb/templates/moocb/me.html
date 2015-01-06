@@ -42,7 +42,7 @@
 {% endif %}
 
 
-<button onclick="chrome.webstore.install()" id="install-button">Add to Chrome</button>
+<button onclick="chrome.webstore.install()" id="install-button" class = "chrome-install">Add to Chrome</button>
 <script>
 if (chrome.app.isInstalled) {
   document.getElementById('install-button').style.display = 'none';
@@ -107,6 +107,15 @@ if (chrome.app.isInstalled) {
 	$(".percent_completed").append(percent_completed + '%');
 
 	{% endblock  %}
+
+	$(".chrome-install").click(function() {
+		
+		// e.preventDefault();
+		console.log('installing now')
+		chrome.webstore.install('https://chrome.google.com/webstore/detail/pcdjfmagbablokdcbjpffipnicphamob', 
+                      function(){ alert("Sucess");},
+                      function(detail){ alert("Failure:"+detail);});
+	});
 
 	</script>
 
