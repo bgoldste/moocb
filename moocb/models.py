@@ -21,21 +21,27 @@ class UserInfo(models.Model):
     def __unicode__(self):
     	return u'%s' % (self.user)	
 
+def get_end():
+	return datetime.today() + timedelta(days=80)
+
 class Goal(models.Model):
 	user = models.OneToOneField(User)
 
 	name = models.CharField(max_length=300)
 	url = models.URLField(max_length=300)
+	#time_goal is the hrs to be worked per week
 	time_goal = models.PositiveIntegerField( null=True)
 
 	start_date = models.DateField(default=datetime.now)
-	end_date = models.DateField(default=datetime(2015, 2, 14, 0, 0))
+	end_date = models.DateField(default=get_end)
 	time_worked = models.PositiveIntegerField(default=0)
 
 	last_worked = models.DateField(blank=True, null=True)
 
+	
 	def __unicode__(self):
 		return u'%s' % (self.name)	
+
 
 
 

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from moocb.models import  Goal, Incentive
+from moocb.models import  Goal, Incentive, get_end
 from django.forms import ModelForm
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
@@ -8,19 +8,19 @@ class UserForm(ModelForm):
 	
 	class Meta:
 		model = User
-		fields = ('username', 'email', 'password')
-	username = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'username', 'class': 'text-center form-control entry'}))
+		fields = ( 'email', 'password')
+	#username = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'username', 'class': 'text-center form-control entry'}))
 	email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'email', 'class': 'text-center form-control entry'}))
 	password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'password', 'type': 'password', 'class': 'text-center form-control entry'}))
 
 class GoalForm(ModelForm):
 	class Meta:
 		model = Goal
-		fields = ('name', 'url', 'time_goal', 'end_date', )
-	name = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Name of your Goal', 'class': 'text-center form-control entry'}))
-	url= forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'url', 'class': 'text-center form-control entry'}))
-	end_date =  forms.DateField(widget=SelectDateWidget(attrs={'class': 'form-control entry date-entry text-center'} ) )
-	time_goal = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'Time Goal', 'class': 'text-center form-control entry'}))
+		fields = ( 'url', 'time_goal', 'end_date', )
+	#name = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'name your course', 'class': 'text-center form-control entry'}))
+	url= forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'https://class.coursera.org/db', 'class': 'text-center form-control entry'}))
+	end_date =  forms.DateField(widget=SelectDateWidget(attrs={'class': 'form-control entry date-entry text-center'} ),initial= get_end)
+	time_goal = forms.CharField( widget=forms.TextInput(attrs={ 'class': 'text-center form-control entry-small'}), initial= 5)
 
 
 class IncentiveForm(ModelForm):

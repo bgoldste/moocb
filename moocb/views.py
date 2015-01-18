@@ -216,9 +216,10 @@ def add_user(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            new_user = User.objects.create_user(**form.cleaned_data)
+            new_user = User.objects.create_user(username = form.cleaned_data['email'], **form.cleaned_data)
             print new_user
-            print 'form username' , form.cleaned_data['username']
+            print "form data"
+            #print 'form username' , form.cleaned_data['username']
             print 'form pw' , form.cleaned_data['password']
             #new_user = authenticate(username='ben', password='1')
 
