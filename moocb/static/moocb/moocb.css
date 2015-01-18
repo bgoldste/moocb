@@ -37,6 +37,7 @@ h3 {
 }
 
 .entry{
+	background: url("../moocb/email.png");
 	border-radius: 25px;
 	border: solid;
 	border-color:#fff;
@@ -114,4 +115,28 @@ h3 {
 }
 .form-control:-ms-input-placeholder {
   color: #fff;
+}
+
+
+.entry-2{
+
+	margin-top: 10px;
+	margin-bottom: 7px;
+	margin-left: auto;
+	margin-right: auto;
+	background: transparent;
+	color: #fff;
+	border: none;
+	max-width: 90%;
+
+
+}
+.form-pic{
+	float: left; 
+	/* max-height: 100%; */
+	padding-left: 3px;
+	
+	height: 45;
+
+
 }

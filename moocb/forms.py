@@ -3,6 +3,41 @@ from moocb.models import  Goal, Incentive, get_end
 from django.forms import ModelForm
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
+from django.utils.safestring import mark_safe
+from django.forms import widgets
+
+class UserWidget(widgets.TextInput):
+    def render(self, name, value, attrs=None):
+        return mark_safe(u'''<div class="entry container">
+								
+								<div class="col-xs-2">
+								    <img class='form-pic' src="/static/moocb/email.png">
+
+								</div>
+								  
+								<div class="col-xs-10">%s</div>
+						    </div>
+
+
+     ''' % (super(UserWidget, self).render(name, value, attrs)))
+
+class PasswordWidget(widgets.TextInput):
+    def render(self, name, value, attrs=None):
+        return mark_safe(u'''<div class="entry container">
+								
+								<div class="col-xs-2">
+								    <img class='form-pic' src="/static/moocb/lock.png">
+
+								</div>
+								  
+								<div class="col-xs-10">%s</div>
+						    </div>
+
+
+     ''' % (super(PasswordWidget, self).render(name, value, attrs)))
+
+
+
 
 class UserForm(ModelForm):
 	
@@ -10,8 +45,8 @@ class UserForm(ModelForm):
 		model = User
 		fields = ( 'email', 'password')
 	#username = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'username', 'class': 'text-center form-control entry'}))
-	email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'email', 'class': 'text-center form-control entry'}))
-	password = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'password', 'type': 'password', 'class': 'text-center form-control entry'}))
+	email = forms.CharField(widget=UserWidget(attrs={'placeholder': 'email', 'class': 'form-control text-center entry-2'}))
+	password = forms.CharField(widget=PasswordWidget(attrs={'placeholder': 'password', 'type': 'password', 'class': 'form-control text-center entry-2'}))
 
 class GoalForm(ModelForm):
 	class Meta:
