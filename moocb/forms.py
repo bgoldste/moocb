@@ -27,7 +27,7 @@ class IncentiveForm(ModelForm):
 	class Meta:
 		model = Incentive
 		fields = ( 'total_pledge',)
-	total_pledge = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'How much you pledge to finish your goal', 'class': 'text-center form-control entry'}))
+	total_pledge = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter a Dollar value', 'class': 'text-center form-control entry'}))
 	
 
 
