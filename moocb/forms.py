@@ -36,6 +36,21 @@ class PasswordWidget(widgets.TextInput):
 
      ''' % (super(PasswordWidget, self).render(name, value, attrs)))
 
+class IncentiveWidget(widgets.TextInput):
+    def render(self, name, value, attrs=None):
+        return mark_safe(u'''<div class="entry container">
+								
+								<div class="col-xs-2">
+								    <img class='form-pic' src="/static/moocb/dolla.png">
+
+								</div>
+								  
+								<div class="col-xs-10">%s</div>
+						    </div>
+
+
+     ''' % (super(IncentiveWidget, self).render(name, value, attrs)))
+
 
 
 
@@ -62,7 +77,7 @@ class IncentiveForm(ModelForm):
 	class Meta:
 		model = Incentive
 		fields = ( 'total_pledge',)
-	total_pledge = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Enter a Dollar value', 'class': 'text-center form-control entry'}))
+	total_pledge = forms.IntegerField(widget=IncentiveWidget(attrs={'placeholder': 'Enter a Dollar value', 'class': 'text-center form-control entry-2'}))
 	
 
 

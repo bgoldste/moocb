@@ -265,10 +265,19 @@ def add_incentive(request):
 
     context['user'] = request.user
     goal = Goal.objects.filter(user = request.user.id)[0]
- 
+    try: 
+        incentive = Incentive.objects.filter(goal__user = request.user.id)[0]
+    except:
+        incentive = None    
     if request.method == "POST":
+        print request.POST
+        if incentive != None:
+            print 'incentive', incentive
+            form = GoalForm(request.POST)
+        
         form = IncentiveForm(request.POST)
         if form.is_valid():
+            print 'no incentive'
             print form.data 
            
             new_incentive = Incentive(goal = goal, **form.cleaned_data)
@@ -277,8 +286,13 @@ def add_incentive(request):
             new_incentive.save()
             # new_goal = Goal (user= request.user, **form.cleaned_data)
             # new_goal.save()
+            if 'no_pay' in request.POST:
+                return HttpResponseRedirect('/me/')
+            elif 'pay' in request.POST:
+                return HttpResponseRedirect('/pay')
+            else:
+                pass
 
-            return HttpResponseRedirect('/pay/')
     else:
         form = IncentiveForm()
 
