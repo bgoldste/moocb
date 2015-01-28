@@ -68,7 +68,7 @@ class GoalForm(ModelForm):
 		model = Goal
 		fields = ( 'url', 'time_goal', 'end_date', )
 	#name = forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'name your course', 'class': 'text-center form-control entry'}))
-	url= forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'https://class.coursera.org/db', 'class': 'text-center form-control entry'}))
+	url= forms.CharField( widget=forms.TextInput(attrs={'placeholder': 'copy and paste the exact url of course', 'class': 'text-center form-control entry'}))
 	end_date =  forms.DateField(widget=SelectDateWidget(attrs={'class': 'form-control entry date-entry text-center'} ),initial= get_end)
 	time_goal = forms.CharField( widget=forms.TextInput(attrs={ 'class': 'text-center form-control entry-small'}), initial= 5)
 

@@ -4,9 +4,8 @@
 
 
 <div class = 'form text-center'>
-	<h3 class = 'form-title '>Welcome, {{user}}!</h3>
+	<h3 class = 'form-title '>Welcome!</h3>
 	<h2>What course are you taking?</h2>
-	<h4>Copy and paste the exact url of your course below</h4>
 
 	
 	<form method="post" action="">
@@ -29,7 +28,7 @@
 			
 
 			{% if field.name == 'time_goal' %}
-				<p>I will pledge:</p>
+				<p>I pledge:</p>
 				{{field}}
 				<p>Hours Per week to completing this course.</p>
 				<p>[*you will be paid for every <strong id="hours-span">5</strong> hours you complete]</p>
@@ -50,7 +49,7 @@
 		
 			
 	   
-			<input class = 'submit' type="submit" value="create" />
+			<input class = 'submit' type="submit" value="pledge" />
 
 	</form>
 

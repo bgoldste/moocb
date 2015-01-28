@@ -29,6 +29,7 @@ class Goal(models.Model):
 
 	name = models.CharField(max_length=300)
 	url = models.URLField(max_length=300)
+	
 	#time_goal is the hrs to be worked per week
 	time_goal = models.PositiveIntegerField( null=True)
 
