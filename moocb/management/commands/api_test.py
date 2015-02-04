@@ -17,7 +17,7 @@ from moocb.timekeeper import getTotalTime
 def add_test():
 	for i in range(5):
 		for j in range(5):
-			url = 'https://salty-inlet-9116.herokuapp.com/add/?user=%d&time=50&goal=%d' % (i, j)
+			url = 'http://127.0.0.1:8000/add/?user=%d&time=50&goal=%d' % (i, j)
 			r = requests.post(url,  data={'hi' : 'asda'})
 
 							   
@@ -56,7 +56,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
     	# login_test()
     	# select_goal_test()
-    	getTotalTimeTest('bb@bb.com')
+    	#getTotalTimeTest('bb@bb.com')
+    	add_test()
 
 
 

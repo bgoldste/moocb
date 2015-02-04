@@ -117,8 +117,6 @@ LOGIN_URL = '/login/'
 
 
 
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -141,3 +139,28 @@ STATICFILES_DIRS = (
 
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+
+
+
+
+
+

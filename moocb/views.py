@@ -14,6 +14,7 @@ from forms import UserForm, GoalForm, IncentiveForm
 import sys
 from django.core import serializers
 import stripe
+from moocb.timekeeper import addTime
 
 
 
@@ -122,7 +123,7 @@ def me(request):
         
         context['goal'] = Goal.objects.get(user = request.user.id)
         context['incentive'] = Incentive.objects.get(goal = context['goal'])
-        #context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
+        context['time_logs'] = TimeLog.objects.filter(goal = context['goal'])
         return render_to_response('moocb/me.html', context)
     except:
        return HttpResponseRedirect('/addgoal/')
@@ -166,19 +167,20 @@ def add_time(request):
                     print "goal time", goal.time_worked
                     goal.time_worked = goal.time_worked + int(time)
                     goal.save()
+                    addTime(goal, int(time))
                     print " new goal time", goal.time_worked
                     time_left = goal.time_goal - goal.time_worked
+
                     data = {
                     'goal' : goal.name, 
                     'time_added' : time,
                     'new_goal_time': goal.time_worked,
                     'time_left_to_goal' : time_left,
                     'user' : user.username,
-
                     }
                 else:
                     data = {'msg': 'goal and id dont match '}
-                    print "not true"
+                    print "goal and id dont match "
                
 
              

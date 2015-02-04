@@ -71,8 +71,6 @@ class Incentive(models.Model):
 
 
 class TimeLog(models.Model):
-
-	#todo - order by date
 	
 	goal = models.ForeignKey(Goal)
 
@@ -84,7 +82,6 @@ class TimeLog(models.Model):
 
 	class Meta:
 		ordering = ["date"]
-
 
 
 
