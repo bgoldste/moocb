@@ -253,7 +253,12 @@ def add_goal (request):
         if request.method == "POST":
             form = GoalForm(request.POST)
             if form.is_valid():
+
                 new_goal = Goal(user= request.user, **form.cleaned_data)
+                print "modifying goal"
+                
+                new_goal.time_goal = int(new_goal.time_goal) * 60 * 24 * 7 
+                print  new_goal.time_goal
                 new_goal.save()
                 return HttpResponseRedirect('/addincentive/')
         else:
